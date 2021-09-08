@@ -321,6 +321,13 @@ class Task(object):
     #: :setting:`CELERY_ACKS_LATE` setting.
     acks_late = None
 
+    #: When enabled messages for this task will not be acknowledged if it
+    #: fails or times out.
+    #:
+    #: The application default can be overridden with the
+    #: :setting:`CELERY_DONT_ACK_ON_FAILURE` setting.
+    dont_ack_on_failure = False
+
     #: Tuple of expected exceptions.
     #:
     #: These are errors that are expected in normal operation
@@ -349,6 +356,8 @@ class Task(object):
         ('ignore_result', 'CELERY_IGNORE_RESULT'),
         ('store_errors_even_if_ignored',
             'CELERY_STORE_ERRORS_EVEN_IF_IGNORED'),
+        ('dont_ack_on_failure',
+         'CELERY_DONT_ACK_ON_FAILURE'),
     )
 
     _backend = None  # set by backend property.

@@ -372,7 +372,7 @@ class Request(object):
         if self.store_errors:
             self.task.backend.mark_as_failure(self.id, exc, request=self)
 
-        if self.task.acks_late:
+        if self.task.acks_late and not self.task.dont_ack_on_failure:
             self.acknowledge()
 
     def on_success(self, ret_value, now=None, nowfun=monotonic):
@@ -437,6 +437,10 @@ class Request(object):
                     self._announce_revoked(
                         'terminated', True, string(exc), False)
                     send_failed_event = False  # already sent revoked event
+
+            # (acks_late) acknowledge after result stored.
+            if self.task.acks_late and not self.task.dont_ack_on_failure:
+                self.acknowledge()
         self._log_error(exc_info, send_failed_event=send_failed_event)
 
     def _log_error(self, einfo, send_failed_event=True):
