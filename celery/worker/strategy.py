@@ -56,8 +56,8 @@ def default(task, app, consumer,
         if req.revoked():
             return
 
-        if _does_info:
-            info('Received task: %s', req)
+        # if _does_info:
+        #     info('Received task: %s', req)
 
         if task_sends_events:
             send_event(

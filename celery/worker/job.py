@@ -396,10 +396,10 @@ class Request(object):
         if _does_info:
             now = now or nowfun()
             runtime = self.time_start and (now - self.time_start) or 0
-            info(self.success_msg.strip(), {
-                'id': self.id, 'name': self.name,
-                'return_value': self.repr_result(ret_value),
-                'runtime': runtime})
+            # info(self.success_msg.strip(), {
+            #     'id': self.id, 'name': self.name,
+            #     'return_value': self.repr_result(ret_value),
+            #     'runtime': runtime})
 
     def on_retry(self, exc_info):
         """Handler called if the task should be retried."""
